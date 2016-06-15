@@ -1,0 +1,10 @@
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\bin\x64\Debug\Views.exe
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\bin\x64\Debug\Views.pdb
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\bin\x64\Debug\Controller.dll
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\bin\x64\Debug\Controller.pdb
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.csprojResolveAssemblyReference.cache
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.ConvertTo.resources
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.Properties.Resources.resources
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.csproj.GenerateResource.Cache
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.exe
+C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.pdb
