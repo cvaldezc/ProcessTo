@@ -8,3 +8,13 @@ C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.Propert
 C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.csproj.GenerateResource.Cache
 C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.exe
 C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.pdb
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.exe
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.pdb
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\bin\x64\Debug\Views.exe
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\bin\x64\Debug\Views.pdb
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\bin\x64\Debug\Controller.dll
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\bin\x64\Debug\Controller.pdb
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.csprojResolveAssemblyReference.cache
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.ConvertTo.resources
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.Properties.Resources.resources
+\\CHRISTIAN-PC\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.csproj.GenerateResource.Cache
