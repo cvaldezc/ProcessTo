@@ -15,6 +15,8 @@ namespace Views
         public ConvertTo()
         {
             InitializeComponent();
+            sismoVertical();
+            chckText();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -27,10 +29,16 @@ namespace Views
             String path = this.txtArchivoFormato.Text;
             ReadFileExcel read = new ReadFileExcel(path);
             read.selectSheet("Hoja1");
-            read.readETabs();
-            read.calcFormulas(Convert.ToDouble(txtDelta.Value), Convert.ToDouble(lblSismoVertical.Text));
+            read.readETabs(this.chkaislado.Checked?txtaislado.Text:"");
+            read.calcFormulas(Convert.ToDouble(txtDelta.Value), Convert.ToDouble(lblSismoVertical.Text), this.chknoaislado.Checked ? txtnoaislado.Text : "");
             read.test();
             read.close();
+            // escritura de archivos
+            WriteEtabs wa = new WriteEtabs();
+            wa.path = this.txtArchivoBase.Text;
+            wa.destino = this.txtArchivoDestino.Text;
+            wa.processe2kAislado();
+            wa.processe2kNoAislado(Convert.ToDouble(this.lblSismoVertical.Text));
         }
 
         private void btnSelArchivoBase_Click(object sender, EventArgs e)
@@ -93,6 +101,49 @@ namespace Views
         private void txtTipoSuelo_ValueChanged(object sender, EventArgs e)
         {
             sismoVertical();
+        }
+
+        private void chckText()
+        {
+            foreach (Control item in this.groupBox5.Controls)
+            {
+                if (item is CheckBox)
+                {
+                    CheckBox cp = (CheckBox)item;
+                    if (cp.Checked)
+                    {
+                        if ((string)cp.Tag == "aislado")
+                        {
+                            txtaislado.Enabled = true;
+                        }
+                        else
+                        {
+                            txtnoaislado.Enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        if ((string)cp.Tag == "aislado")
+                        {
+                            txtaislado.Enabled = false;
+                        }
+                        else
+                        {
+                            txtnoaislado.Enabled = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void chknoaislado_CheckedChanged(object sender, EventArgs e)
+        {
+            chckText();
+        }
+
+        private void chkaislado_CheckedChanged(object sender, EventArgs e)
+        {
+            chckText();
         }
     }
 }

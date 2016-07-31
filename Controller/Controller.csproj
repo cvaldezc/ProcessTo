@@ -59,8 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IReadFileExcelable.cs" />
+    <Compile Include="Interfaces\IWriteEtabs.cs" />
     <Compile Include="ReadFileExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WriteEtabs.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Interop.Excel">

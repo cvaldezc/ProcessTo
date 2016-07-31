@@ -14,7 +14,9 @@ namespace Controller.Interfaces
         /// procedimiento que se encarga leer el formato de excel
         /// y llenar los datos a los dataset
         /// </summary>
-        void readETabs();
+        void readETabs(String story);
+
+        void calcFormulas(Double delta, Double cm, String story);
 
         void close();
 

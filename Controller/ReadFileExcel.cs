@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Data;
+using System.Collections.Generic;
 using Excel = Microsoft.Office.Interop.Excel;
 using Controller.Interfaces;
 using Model;
@@ -43,7 +44,7 @@ namespace Controller
             sheet = (Excel.Worksheet)book.Sheets[Name];
         }
 
-        public void readETabs()
+        public void readETabs(String story)
         {
             //try
             //{
@@ -66,17 +67,23 @@ namespace Controller
                         // drs = ds.Tables["GLOBAL"].Select(join);
                         if (drs.Length > 0)
                         {
-                            Object[] obj = rowData(i);
-                            drs[0][obj[0].ToString()] = Math.Abs(Convert.ToDouble(obj[1]));
+                            List<object[]> lst = rowData(i);
+                            foreach (object[] item in lst)
+                            {
+                                drs[0][item[0].ToString()] = Math.Abs(Convert.ToDouble(item[1]));
+                            }
                             Model.Model.dtGlobal.AcceptChanges();
                         }
                         else
                         {
                             DataRow dr = Model.Model.dtGlobal.NewRow();
-                            dr["story"] = sheet.Cells[i, 1].Value;
+                            dr["story"] = story != "" ? story : sheet.Cells[i, 1].Value;
                             dr["joint"] = sheet.Cells[i, 2].Value;
-                            Object[] obj = rowData(i);
-                            dr[obj[0].ToString()] = Math.Abs(Convert.ToDouble(obj[1]));
+                            List<object[]> lst = rowData(i);
+                            foreach (object[] item in lst)
+                            {
+                                dr[item[0].ToString()] = Math.Abs(Convert.ToDouble(item[1]));
+                            }
 
                             Model.Model.dtGlobal.Rows.Add(dr);
                         }
@@ -96,12 +103,14 @@ namespace Controller
             //}
         }
 
-        private Object[] rowData(int row)
+        private List<object[]> rowData(int row)
         {
-            Object[] obj = new object[2];
+            List<object[]> lst = new List<object[]>();
             try
             {
                 String name = sheet.Cells[row, 4].Value;
+                object[] obj;
+                obj = new object[2];
                 obj[0] = name.ToLower();
                 switch (name)
                 {
@@ -122,15 +131,32 @@ namespace Controller
                     default:
                         break;
                 }
+                lst.Add(obj);
+                obj = new object[2];
+                switch (name)
+                {
+                    case "SX":
+                        obj[0] = "fx";
+                        obj[1] = sheet.Cells[row, 5].Value;
+                        lst.Add(obj);
+                        break;
+                    case "SY":
+                        obj[0] = "fy";
+                        obj[1] = sheet.Cells[row, 6].Value;
+                        lst.Add(obj);
+                        break;
+                    default:
+                        break;
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("ERROR " + ex.Message);
             }
-            return obj;
+            return lst;
         }
 
-        public void calcFormulas(double delta, double cm)
+        public void calcFormulas(double delta, double cm, String story)
         {
             try
             {
@@ -146,6 +172,7 @@ namespace Controller
                     row["pdsx"] = Math.Round((((dead + (0.5 * live) + fzx + sv) * delta) / 2), 2);
                     row["pdsy"] = Math.Round((((dead + (0.5 * live) + fzy + sv) * delta) / 2), 2);
                 }
+                inputSXSY(story);
             }
             catch (Exception)
             {
@@ -154,6 +181,41 @@ namespace Controller
             }
         }
 
+        private void inputSXSY(String story)
+        {
+            try
+            {
+                // Realizar el ingreso en la tabla SX
+                foreach (DataRow row in Model.Model.dtGlobal.Rows)
+                {
+                    // Aqui se ingresa los datos a la tabla sx
+                    DataRow dr = Model.Model.dtSX.NewRow();
+                    dr["story"] = story != "" ? story : row["story"];
+                    dr["joint"] = row["joint"];
+                    dr["combo"] = "SX";
+                    dr["fz"] = row["fzx"];
+                    dr["my"] = row["pdsx"];
+                    dr["fx"] = row["fx"];
+                    Model.Model.dtSX.Rows.Add(dr);
+
+                    // Aqui se ingresa los datos a la tabla sy
+                    DataRow d = Model.Model.dtSY.NewRow();
+                    d["story"] = story != "" ? story : row["story"];
+                    d["joint"] = row["joint"];
+                    d["combo"] = "SY";
+                    d["fz"] = row["fzy"];
+                    d["mx"] = row["pdsy"];
+                    d["fy"] = row["fy"];
+                    Model.Model.dtSY.Rows.Add(d);
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+        
         public void close()
         {
             this.book.Close();
@@ -171,7 +233,26 @@ namespace Controller
                 }
                 Console.WriteLine("");
             }
-
+            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            for (int i = 0; i < Model.Model.dtSX.Rows.Count; i++)
+            {
+                for (int j = 0; j < Model.Model.dtSX.Columns.Count; j++)
+                {
+                    Console.Write(Model.Model.dtSX.Rows[i][j].ToString());
+                    Console.Write(", ");
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine("======================================================");
+            for (int i = 0; i < Model.Model.dtSY.Rows.Count; i++)
+            {
+                for (int j = 0; j < Model.Model.dtSY.Columns.Count; j++)
+                {
+                    Console.Write(Model.Model.dtSY.Rows[i][j].ToString());
+                    Console.Write(", ");
+                }
+                Console.WriteLine("");
+            }
         }
 
         #endregion

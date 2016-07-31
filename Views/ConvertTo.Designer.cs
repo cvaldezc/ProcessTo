@@ -43,12 +43,14 @@
             this.progreso2 = new System.Windows.Forms.ProgressBar();
             this.progreso1 = new System.Windows.Forms.ProgressBar();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.chkaislado = new System.Windows.Forms.CheckBox();
+            this.chknoaislado = new System.Windows.Forms.CheckBox();
             this.txtTipoSuelo = new System.Windows.Forms.NumericUpDown();
             this.txtDelta = new System.Windows.Forms.NumericUpDown();
             this.txtZonaZ = new System.Windows.Forms.NumericUpDown();
             this.lblSismoVertical = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtaislado = new System.Windows.Forms.TextBox();
+            this.txtnoaislado = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -214,26 +216,28 @@
             // 
             // progreso2
             // 
-            this.progreso2.Location = new System.Drawing.Point(6, 61);
+            this.progreso2.Location = new System.Drawing.Point(6, 55);
             this.progreso2.Name = "progreso2";
-            this.progreso2.Size = new System.Drawing.Size(139, 11);
+            this.progreso2.Size = new System.Drawing.Size(298, 17);
             this.progreso2.TabIndex = 1;
             // 
             // progreso1
             // 
-            this.progreso1.Location = new System.Drawing.Point(6, 29);
+            this.progreso1.Location = new System.Drawing.Point(6, 28);
             this.progreso1.Name = "progreso1";
-            this.progreso1.Size = new System.Drawing.Size(139, 12);
+            this.progreso1.Size = new System.Drawing.Size(298, 13);
             this.progreso1.TabIndex = 0;
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.chkaislado);
+            this.groupBox5.Controls.Add(this.chknoaislado);
             this.groupBox5.Controls.Add(this.txtTipoSuelo);
             this.groupBox5.Controls.Add(this.txtDelta);
             this.groupBox5.Controls.Add(this.txtZonaZ);
             this.groupBox5.Controls.Add(this.lblSismoVertical);
-            this.groupBox5.Controls.Add(this.textBox6);
-            this.groupBox5.Controls.Add(this.textBox5);
+            this.groupBox5.Controls.Add(this.txtaislado);
+            this.groupBox5.Controls.Add(this.txtnoaislado);
             this.groupBox5.Controls.Add(this.label9);
             this.groupBox5.Controls.Add(this.label8);
             this.groupBox5.Controls.Add(this.label7);
@@ -247,6 +251,28 @@
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "groupBox5";
+            // 
+            // chkaislado
+            // 
+            this.chkaislado.AutoSize = true;
+            this.chkaislado.Location = new System.Drawing.Point(277, 162);
+            this.chkaislado.Name = "chkaislado";
+            this.chkaislado.Size = new System.Drawing.Size(15, 14);
+            this.chkaislado.TabIndex = 4;
+            this.chkaislado.Tag = "aislado";
+            this.chkaislado.UseVisualStyleBackColor = true;
+            this.chkaislado.CheckedChanged += new System.EventHandler(this.chkaislado_CheckedChanged);
+            // 
+            // chknoaislado
+            // 
+            this.chknoaislado.AutoSize = true;
+            this.chknoaislado.Location = new System.Drawing.Point(277, 135);
+            this.chknoaislado.Name = "chknoaislado";
+            this.chknoaislado.Size = new System.Drawing.Size(15, 14);
+            this.chknoaislado.TabIndex = 4;
+            this.chknoaislado.Tag = "noaislado";
+            this.chknoaislado.UseVisualStyleBackColor = true;
+            this.chknoaislado.CheckedChanged += new System.EventHandler(this.chknoaislado_CheckedChanged);
             // 
             // txtTipoSuelo
             // 
@@ -303,24 +329,24 @@
             this.lblSismoVertical.TabIndex = 2;
             this.lblSismoVertical.Text = "label10";
             // 
-            // textBox6
+            // txtaislado
             // 
-            this.textBox6.Location = new System.Drawing.Point(137, 159);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(155, 20);
-            this.textBox6.TabIndex = 1;
-            this.textBox6.Text = "Base";
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            this.txtaislado.Location = new System.Drawing.Point(137, 159);
+            this.txtaislado.Name = "txtaislado";
+            this.txtaislado.Size = new System.Drawing.Size(128, 20);
+            this.txtaislado.TabIndex = 1;
+            this.txtaislado.Text = "Base";
+            this.txtaislado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtaislado.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
-            // textBox5
+            // txtnoaislado
             // 
-            this.textBox5.Location = new System.Drawing.Point(137, 133);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(155, 20);
-            this.textBox5.TabIndex = 1;
-            this.textBox5.Text = "Story 1";
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtnoaislado.Location = new System.Drawing.Point(137, 133);
+            this.txtnoaislado.Name = "txtnoaislado";
+            this.txtnoaislado.Size = new System.Drawing.Size(128, 20);
+            this.txtnoaislado.TabIndex = 1;
+            this.txtnoaislado.Text = "Story1";
+            this.txtnoaislado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
             // 
@@ -470,8 +496,8 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label lblSismoVertical;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtaislado;
+        private System.Windows.Forms.TextBox txtnoaislado;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
@@ -481,5 +507,7 @@
         private System.Windows.Forms.NumericUpDown txtTipoSuelo;
         private System.Windows.Forms.NumericUpDown txtDelta;
         private System.Windows.Forms.NumericUpDown txtZonaZ;
+        private System.Windows.Forms.CheckBox chkaislado;
+        private System.Windows.Forms.CheckBox chknoaislado;
     }
 }
