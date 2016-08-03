@@ -52,7 +52,7 @@ namespace Controller
                                 Text.AppendLine("");
                                 foreach (DataRow row in Model.Model.dtSY.Rows)
                                 {
-                                    Text.AppendLine(String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	PDSX	MX	-{2}", row["joint"], row["story"], row["mx"]));
+                                    Text.AppendLine(String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	PDSY	MX	-{2}", row["joint"], row["story"], row["mx"]));
                                 }
                                 Text.AppendLine("");
                                 break;
@@ -135,17 +135,20 @@ namespace Controller
                                         String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	SX	FX	{2}",
                                             row["joint"], row["story"], row["fx"]));
                                     Text.AppendLine(
+                                        String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	SY	FY	{2}",
+                                            row["joint"], row["story"], row["fy"]));
+                                    Text.AppendLine(
                                         String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	SXV	FZ	-{2}",
                                             row["joint"], row["story"], row["fzx"]));
                                     Text.AppendLine(
                                         String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	SYV	FZ	-{2}",
                                             row["joint"], row["story"], row["fzy"]));
                                     Text.AppendLine(
-                                        String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	PDSX MY	FZ	{2}",
-                                            row["joint"], row["story"], row["fx"]));
+                                        String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	PDSX    MY	{2}",
+                                            row["joint"], row["story"], row["pdsx"]));
                                     Text.AppendLine(
-                                        String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	PDSY MX	FZ	-{2}",
-                                            row["joint"], row["story"], row["fy"]));
+                                        String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	PDSY    MX	-{2}",
+                                            row["joint"], row["story"], row["pdsy"]));
                                 }
                                 Text.AppendLine("");
                                 Text.AppendLine("");
