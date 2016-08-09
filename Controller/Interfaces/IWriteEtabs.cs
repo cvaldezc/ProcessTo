@@ -8,9 +8,9 @@ namespace Controller.Interfaces
     public interface IWriteEtabs
     {
 
-        void processe2kAislado();
+        void processe2kAislado(String story, Double cm);
 
-        void processe2kNoAislado(Double cm);
+        void processe2kNoAislado(String story, Double cm);
 
     }
 }

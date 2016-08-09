@@ -15,7 +15,7 @@ namespace Model
 
         public static DataTable dtSY;
 
-        public static void ìnit()
+        public static void init()
         {
             // Datos de tabla Global
             dtGlobal = new DataTable("GLOBAL");

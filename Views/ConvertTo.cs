@@ -29,16 +29,16 @@ namespace Views
             String path = this.txtArchivoFormato.Text;
             ReadFileExcel read = new ReadFileExcel(path);
             read.selectSheet("Hoja1");
-            read.readETabs(this.chkaislado.Checked?txtaislado.Text:"");
+            read.readETabs(this.chkaislado.Checked ? txtaislado.Text : "");
             read.calcFormulas(Convert.ToDouble(txtDelta.Value), Convert.ToDouble(lblSismoVertical.Text), this.chknoaislado.Checked ? txtnoaislado.Text : "");
-            read.test();
+            // read.test();
             read.close();
             // escritura de archivos
             WriteEtabs wa = new WriteEtabs();
             wa.path = this.txtArchivoBase.Text;
             wa.destino = this.txtArchivoDestino.Text;
-            wa.processe2kAislado();
-            wa.processe2kNoAislado(Convert.ToDouble(this.lblSismoVertical.Text));
+            wa.processe2kAislado(this.chkaislado.Checked ? txtaislado.Text : "Base", Convert.ToDouble(this.lblSismoVertical.Text));
+            wa.processe2kNoAislado(this.chknoaislado.Checked ? this.txtnoaislado.Text : "story1", Convert.ToDouble(this.lblSismoVertical.Text));
         }
 
         private void btnSelArchivoBase_Click(object sender, EventArgs e)

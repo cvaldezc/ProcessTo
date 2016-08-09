@@ -53,7 +53,7 @@ namespace Controller
                 //this.selectSheet("GLOBAL INPUT");
                 if (sheet.Columns.Count >= 10)
                 {
-                    Model.Model.ìnit();
+                    Model.Model.init();
                     // recoremos las filas que contenga la hoja de excel
                     #region ""Recorrido de la hoja de excel"
                     for (int i = 3; i < sheet.Rows.Count; i++)
