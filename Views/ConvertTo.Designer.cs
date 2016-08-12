@@ -137,7 +137,7 @@
             this.BtnProcesar.Name = "BtnProcesar";
             this.BtnProcesar.Size = new System.Drawing.Size(75, 23);
             this.BtnProcesar.TabIndex = 5;
-            this.BtnProcesar.Text = "Processar";
+            this.BtnProcesar.Text = "Procesar";
             this.BtnProcesar.UseVisualStyleBackColor = true;
             this.BtnProcesar.Click += new System.EventHandler(this.BtnProcesar_Click);
             // 
@@ -163,9 +163,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(29, 75);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 13);
+            this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Formato Exel ( *.xlsx )";
+            this.label2.Text = "Formato ( *.xlsx | *.txt )";
             // 
             // label1
             // 
@@ -302,7 +302,7 @@
             0,
             0,
             131072});
-            this.txtDelta.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
+            this.txtDelta.ValueChanged += new System.EventHandler(this.txtDelta_ValueChanged);
             // 
             // txtZonaZ
             // 

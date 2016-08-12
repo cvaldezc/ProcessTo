@@ -8,13 +8,13 @@ using Model;
 
 namespace Controller
 {
-    public class ReadFileExcel : IReadFileExcelable
+    public class ReadFileEtabs : IReadFileable
     {
         private Excel.Application app;
         private Excel.Workbook book;
         private Excel.Worksheet sheet;
 
-        public ReadFileExcel(string path)
+        public ReadFileEtabs(string path)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Controller
                 //this.selectSheet("GLOBAL INPUT");
                 if (sheet.Columns.Count >= 10)
                 {
-                    Model.Model.init();
+                    Model.MDEtabs.init();
                     // recoremos las filas que contenga la hoja de excel
                     #region ""Recorrido de la hoja de excel"
                     for (int i = 3; i < sheet.Rows.Count; i++)
@@ -63,7 +63,7 @@ namespace Controller
                             break;
                         }
                         string join = String.Format("joint='{0}'", sheet.Cells[i, 2].Value);
-                        DataRow[] drs = Model.Model.dtGlobal.Select(join);
+                        DataRow[] drs = Model.MDEtabs.dtGlobal.Select(join);
                         // drs = ds.Tables["GLOBAL"].Select(join);
                         if (drs.Length > 0)
                         {
@@ -72,11 +72,11 @@ namespace Controller
                             {
                                 drs[0][item[0].ToString()] = Math.Abs(Convert.ToDouble(item[1]));
                             }
-                            Model.Model.dtGlobal.AcceptChanges();
+                            Model.MDEtabs.dtGlobal.AcceptChanges();
                         }
                         else
                         {
-                            DataRow dr = Model.Model.dtGlobal.NewRow();
+                            DataRow dr = Model.MDEtabs.dtGlobal.NewRow();
                             dr["story"] = story != "" ? story : sheet.Cells[i, 1].Value;
                             dr["joint"] = sheet.Cells[i, 2].Value;
                             List<object[]> lst = rowData(i);
@@ -85,7 +85,7 @@ namespace Controller
                                 dr[item[0].ToString()] = Math.Abs(Convert.ToDouble(item[1]));
                             }
 
-                            Model.Model.dtGlobal.Rows.Add(dr);
+                            Model.MDEtabs.dtGlobal.Rows.Add(dr);
                         }
                     }
                     #endregion
@@ -160,7 +160,7 @@ namespace Controller
         {
             try
             {
-                foreach (DataRow row in Model.Model.dtGlobal.Rows)
+                foreach (DataRow row in Model.MDEtabs.dtGlobal.Rows)
                 {
                     double dead = Convert.ToDouble(row["dead"]);
                     double live = Convert.ToDouble(row["live"]);
@@ -186,27 +186,27 @@ namespace Controller
             try
             {
                 // Realizar el ingreso en la tabla SX
-                foreach (DataRow row in Model.Model.dtGlobal.Rows)
+                foreach (DataRow row in Model.MDEtabs.dtGlobal.Rows)
                 {
                     // Aqui se ingresa los datos a la tabla sx
-                    DataRow dr = Model.Model.dtSX.NewRow();
+                    DataRow dr = Model.MDEtabs.dtSX.NewRow();
                     dr["story"] = story != "" ? story : row["story"];
                     dr["joint"] = row["joint"];
                     dr["combo"] = "SX";
                     dr["fz"] = row["fzx"];
                     dr["my"] = row["pdsx"];
                     dr["fx"] = row["fx"];
-                    Model.Model.dtSX.Rows.Add(dr);
+                    Model.MDEtabs.dtSX.Rows.Add(dr);
 
                     // Aqui se ingresa los datos a la tabla sy
-                    DataRow d = Model.Model.dtSY.NewRow();
+                    DataRow d = Model.MDEtabs.dtSY.NewRow();
                     d["story"] = story != "" ? story : row["story"];
                     d["joint"] = row["joint"];
                     d["combo"] = "SY";
                     d["fz"] = row["fzy"];
                     d["mx"] = row["pdsy"];
                     d["fy"] = row["fy"];
-                    Model.Model.dtSY.Rows.Add(d);
+                    Model.MDEtabs.dtSY.Rows.Add(d);
                 }
             }
             catch (Exception)
@@ -224,31 +224,31 @@ namespace Controller
 
         public void test()
         {
-            for (int i = 0; i < Model.Model.dtGlobal.Rows.Count; i++)
+            for (int i = 0; i < Model.MDEtabs.dtGlobal.Rows.Count; i++)
             {
-                for (int j = 0; j < Model.Model.dtGlobal.Columns.Count; j++)
+                for (int j = 0; j < Model.MDEtabs.dtGlobal.Columns.Count; j++)
                 {
-                    Console.Write(Model.Model.dtGlobal.Rows[i][j].ToString());
+                    Console.Write(Model.MDEtabs.dtGlobal.Rows[i][j].ToString());
                     Console.Write(", ");
                 }
                 Console.WriteLine("");
             }
             Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            for (int i = 0; i < Model.Model.dtSX.Rows.Count; i++)
+            for (int i = 0; i < Model.MDEtabs.dtSX.Rows.Count; i++)
             {
-                for (int j = 0; j < Model.Model.dtSX.Columns.Count; j++)
+                for (int j = 0; j < Model.MDEtabs.dtSX.Columns.Count; j++)
                 {
-                    Console.Write(Model.Model.dtSX.Rows[i][j].ToString());
+                    Console.Write(Model.MDEtabs.dtSX.Rows[i][j].ToString());
                     Console.Write(", ");
                 }
                 Console.WriteLine("");
             }
             Console.WriteLine("======================================================");
-            for (int i = 0; i < Model.Model.dtSY.Rows.Count; i++)
+            for (int i = 0; i < Model.MDEtabs.dtSY.Rows.Count; i++)
             {
-                for (int j = 0; j < Model.Model.dtSY.Columns.Count; j++)
+                for (int j = 0; j < Model.MDEtabs.dtSY.Columns.Count; j++)
                 {
-                    Console.Write(Model.Model.dtSY.Rows[i][j].ToString());
+                    Console.Write(Model.MDEtabs.dtSY.Rows[i][j].ToString());
                     Console.Write(", ");
                 }
                 Console.WriteLine("");

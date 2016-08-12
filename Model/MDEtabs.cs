@@ -6,7 +6,7 @@ using System.Data;
 
 namespace Model
 {
-    public class Model
+    public class MDEtabs
     {
 
         public static DataTable dtGlobal;

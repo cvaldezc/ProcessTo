@@ -26,19 +26,7 @@ namespace Views
 
         private void BtnProcesar_Click(object sender, EventArgs e)
         {
-            String path = this.txtArchivoFormato.Text;
-            ReadFileExcel read = new ReadFileExcel(path);
-            read.selectSheet("Hoja1");
-            read.readETabs(this.chkaislado.Checked ? txtaislado.Text : "");
-            read.calcFormulas(Convert.ToDouble(txtDelta.Value), Convert.ToDouble(lblSismoVertical.Text), this.chknoaislado.Checked ? txtnoaislado.Text : "");
-            // read.test();
-            read.close();
-            // escritura de archivos
-            WriteEtabs wa = new WriteEtabs();
-            wa.path = this.txtArchivoBase.Text;
-            wa.destino = this.txtArchivoDestino.Text;
-            wa.processe2kAislado(this.chkaislado.Checked ? txtaislado.Text : "Base", Convert.ToDouble(this.lblSismoVertical.Text));
-            wa.processe2kNoAislado(this.chknoaislado.Checked ? this.txtnoaislado.Text : "story1", Convert.ToDouble(this.lblSismoVertical.Text));
+            ProcessFiles();
         }
 
         private void btnSelArchivoBase_Click(object sender, EventArgs e)
@@ -54,7 +42,7 @@ namespace Views
         private void btnSelArchivoFormato_Click(object sender, EventArgs e)
         {
             this.oFD = new OpenFileDialog();
-            this.oFD.Filter = "Formato (*.xlxs) | *.xlsx";
+            this.oFD.Filter = "Formato (*.xlxs, *.txt) | *.xlsx; *.txt";
             if (this.oFD.ShowDialog() == DialogResult.OK)
             {
                 this.txtArchivoFormato.Text = this.oFD.FileName;
@@ -144,6 +132,47 @@ namespace Views
         private void chkaislado_CheckedChanged(object sender, EventArgs e)
         {
             chckText();
+        }
+
+        private void ProcessFiles()
+        {
+            String path = this.txtArchivoFormato.Text;
+            String fbase = this.txtArchivoBase.Text;
+            String ext = fbase.Split(new char[] { '.' }).Last();
+            Console.WriteLine(fbase);
+            Console.WriteLine(ext);
+            if (ext == "e2k")
+            {
+                Console.WriteLine("Etabs Read");
+                ReadFileEtabs etabs = new ReadFileEtabs(path);
+                etabs.selectSheet("Hoja1");
+                etabs.readETabs(this.chkaislado.Checked ? txtaislado.Text : "");
+                etabs.calcFormulas(Convert.ToDouble(txtDelta.Value), Convert.ToDouble(lblSismoVertical.Text), this.chknoaislado.Checked ? txtnoaislado.Text : "");
+                // read.test();
+                etabs.close();
+                // escritura de archivos
+                WriteEtabs wa = new WriteEtabs();
+                wa.path = this.txtArchivoBase.Text;
+                wa.destino = this.txtArchivoDestino.Text;
+                wa.processe2kAislado(this.chkaislado.Checked ? txtaislado.Text : "Base", Convert.ToDouble(this.lblSismoVertical.Text));
+                wa.processe2kNoAislado(this.chknoaislado.Checked ? this.txtnoaislado.Text : "story1", Convert.ToDouble(this.lblSismoVertical.Text));
+            }
+            if (ext == "std")
+            {
+                Console.WriteLine("Staad PRO Read");
+                ReadFileStaadPRO staad = new ReadFileStaadPRO();
+                staad.participacion = Convert.ToDouble(this.lblSismoVertical.Text);
+                staad.delta = Convert.ToDouble(this.txtDelta.Value);
+                staad.path = path;
+                staad.ReadStaadPro();
+                staad.test();
+            }
+            
+        }
+
+        private void txtDelta_ValueChanged(object sender, EventArgs e)
+        {
+            sismoVertical();
         }
     }
 }

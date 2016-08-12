@@ -53,13 +53,13 @@ namespace Controller
                                 load = true;
                                 Text.AppendLine(line);
                                 // agregamos datos
-                                foreach (DataRow row in Model.Model.dtSX.Rows)
+                                foreach (DataRow row in Model.MDEtabs.dtSX.Rows)
                                 {
                                     // POINTLOAD	1	Base	TYPE	FORCE	LC	PDSX	MY	12.44
                                     Text.AppendLine(String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	PDSX	MY	{2}", row["joint"], story, row["my"]));
                                 }
                                 Text.AppendLine("");
-                                foreach (DataRow row in Model.Model.dtSY.Rows)
+                                foreach (DataRow row in Model.MDEtabs.dtSY.Rows)
                                 {
                                     Text.AppendLine(String.Format("  POINTLOAD	{0}	{1}	TYPE	FORCE	LC	PDSY	MX	-{2}", row["joint"], story, row["mx"]));
                                 }
@@ -225,7 +225,7 @@ namespace Controller
                                 load = true;
                                 Text.AppendLine(line);
                                 // agregamos datos
-                                foreach (DataRow row in Model.Model.dtGlobal.Rows)
+                                foreach (DataRow row in Model.MDEtabs.dtGlobal.Rows)
                                 {
                                     // POINTLOAD  "2"  "Base"  TYPE "FORCE"  LC "Dead" FZ -23.88
  	                                // POINTLOAD  "2"  "Base"  TYPE "FORCE"  LC "Live" FZ -.6488  
