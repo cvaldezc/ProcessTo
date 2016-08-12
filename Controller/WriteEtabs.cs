@@ -195,7 +195,6 @@ namespace Controller
 
         public void processe2kNoAislado(String story, Double cm)
         {
-
             if (File.Exists(path))
             {
                 // iniciamos lectura de archivo
