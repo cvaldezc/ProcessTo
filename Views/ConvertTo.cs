@@ -166,6 +166,12 @@ namespace Views
                 staad.path = path;
                 staad.ReadStaadPro();
                 staad.test();
+                // Escribir Archivo
+                WriteStaadPRO wsp = new WriteStaadPRO();
+                wsp.path = this.txtArchivoBase.Text;
+                wsp.destiny = this.txtArchivoDestino.Text;
+                //wsp.readFile();
+                wsp.processNoAisladoSTD();
             }
             
         }

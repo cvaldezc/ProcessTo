@@ -95,7 +95,6 @@
             // 
             this.groupBox1.Controls.Add(this.btnSelArchivoFormato);
             this.groupBox1.Controls.Add(this.btnSelArchivoBase);
-            this.groupBox1.Controls.Add(this.BtnProcesar);
             this.groupBox1.Controls.Add(this.txtArchivoFormato);
             this.groupBox1.Controls.Add(this.txtArchivoBase);
             this.groupBox1.Controls.Add(this.label2);
@@ -110,7 +109,7 @@
             // btnSelArchivoFormato
             // 
             this.btnSelArchivoFormato.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelArchivoFormato.Location = new System.Drawing.Point(143, 68);
+            this.btnSelArchivoFormato.Location = new System.Drawing.Point(131, 68);
             this.btnSelArchivoFormato.Margin = new System.Windows.Forms.Padding(2);
             this.btnSelArchivoFormato.Name = "btnSelArchivoFormato";
             this.btnSelArchivoFormato.Size = new System.Drawing.Size(29, 24);
@@ -122,7 +121,7 @@
             // btnSelArchivoBase
             // 
             this.btnSelArchivoBase.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelArchivoBase.Location = new System.Drawing.Point(143, 25);
+            this.btnSelArchivoBase.Location = new System.Drawing.Point(133, 25);
             this.btnSelArchivoBase.Margin = new System.Windows.Forms.Padding(2);
             this.btnSelArchivoBase.Name = "btnSelArchivoBase";
             this.btnSelArchivoBase.Size = new System.Drawing.Size(29, 24);
@@ -133,9 +132,9 @@
             // 
             // BtnProcesar
             // 
-            this.BtnProcesar.Location = new System.Drawing.Point(557, 19);
+            this.BtnProcesar.Location = new System.Drawing.Point(97, 19);
             this.BtnProcesar.Name = "BtnProcesar";
-            this.BtnProcesar.Size = new System.Drawing.Size(75, 23);
+            this.BtnProcesar.Size = new System.Drawing.Size(129, 42);
             this.BtnProcesar.TabIndex = 5;
             this.BtnProcesar.Text = "Procesar";
             this.BtnProcesar.UseVisualStyleBackColor = true;
@@ -144,24 +143,24 @@
             // txtArchivoFormato
             // 
             this.txtArchivoFormato.Enabled = false;
-            this.txtArchivoFormato.Location = new System.Drawing.Point(189, 72);
+            this.txtArchivoFormato.Location = new System.Drawing.Point(167, 72);
             this.txtArchivoFormato.Name = "txtArchivoFormato";
-            this.txtArchivoFormato.Size = new System.Drawing.Size(329, 20);
+            this.txtArchivoFormato.Size = new System.Drawing.Size(459, 20);
             this.txtArchivoFormato.TabIndex = 3;
             this.txtArchivoFormato.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // txtArchivoBase
             // 
             this.txtArchivoBase.Enabled = false;
-            this.txtArchivoBase.Location = new System.Drawing.Point(189, 29);
+            this.txtArchivoBase.Location = new System.Drawing.Point(167, 29);
             this.txtArchivoBase.Name = "txtArchivoBase";
-            this.txtArchivoBase.Size = new System.Drawing.Size(329, 20);
+            this.txtArchivoBase.Size = new System.Drawing.Size(459, 20);
             this.txtArchivoBase.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 75);
+            this.label2.Location = new System.Drawing.Point(16, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 1;
@@ -170,7 +169,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 32);
+            this.label1.Location = new System.Drawing.Point(16, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 0;
@@ -185,7 +184,6 @@
             this.groupBox2.Size = new System.Drawing.Size(638, 213);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Procesos";
             // 
             // tableLayoutPanel2
             // 
@@ -206,26 +204,26 @@
             // 
             this.groupBox4.Controls.Add(this.progreso2);
             this.groupBox4.Controls.Add(this.progreso1);
+            this.groupBox4.Controls.Add(this.BtnProcesar);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(319, 3);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(310, 188);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "groupBox4";
             // 
             // progreso2
             // 
-            this.progreso2.Location = new System.Drawing.Point(6, 55);
+            this.progreso2.Location = new System.Drawing.Point(6, 119);
             this.progreso2.Name = "progreso2";
-            this.progreso2.Size = new System.Drawing.Size(298, 17);
+            this.progreso2.Size = new System.Drawing.Size(298, 18);
             this.progreso2.TabIndex = 1;
             // 
             // progreso1
             // 
-            this.progreso1.Location = new System.Drawing.Point(6, 28);
+            this.progreso1.Location = new System.Drawing.Point(6, 79);
             this.progreso1.Name = "progreso1";
-            this.progreso1.Size = new System.Drawing.Size(298, 13);
+            this.progreso1.Size = new System.Drawing.Size(298, 20);
             this.progreso1.TabIndex = 0;
             // 
             // groupBox5
@@ -250,7 +248,7 @@
             this.groupBox5.Size = new System.Drawing.Size(310, 188);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "groupBox5";
+            this.groupBox5.Text = "Datos";
             // 
             // chkaislado
             // 
@@ -412,12 +410,12 @@
             this.groupBox3.Size = new System.Drawing.Size(638, 55);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
+            this.groupBox3.Text = "Salida de Archivo";
             // 
             // btnSelDestino
             // 
             this.btnSelDestino.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelDestino.Location = new System.Drawing.Point(143, 20);
+            this.btnSelDestino.Location = new System.Drawing.Point(131, 19);
             this.btnSelDestino.Margin = new System.Windows.Forms.Padding(2);
             this.btnSelDestino.Name = "btnSelDestino";
             this.btnSelDestino.Size = new System.Drawing.Size(29, 24);
@@ -438,9 +436,9 @@
             // txtArchivoDestino
             // 
             this.txtArchivoDestino.Enabled = false;
-            this.txtArchivoDestino.Location = new System.Drawing.Point(189, 23);
+            this.txtArchivoDestino.Location = new System.Drawing.Point(167, 23);
             this.txtArchivoDestino.Name = "txtArchivoDestino";
-            this.txtArchivoDestino.Size = new System.Drawing.Size(329, 20);
+            this.txtArchivoDestino.Size = new System.Drawing.Size(351, 20);
             this.txtArchivoDestino.TabIndex = 4;
             // 
             // oFD

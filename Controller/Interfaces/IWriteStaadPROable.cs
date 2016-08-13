@@ -12,5 +12,6 @@ namespace Controller.Interfaces
 
         void processNoAisladoSTD();
 
+        StringBuilder readFile();
     }
 }
