@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarraProgreso.cs" />
     <Compile Include="Interfaces\IReadFileable.cs" />
     <Compile Include="Interfaces\IReadFileStaadProable.cs" />
     <Compile Include="Interfaces\IWriteEtabs.cs" />

@@ -27,6 +27,7 @@ namespace Controller
             Model.MDStaadPRO.init();
             fs = new FileStream(@path, FileMode.Open, FileAccess.Read);
             read = new StreamReader(fs, Encoding.UTF8);
+            double fac = 1000;
             //try
             //{
                 String node = "";
@@ -44,8 +45,8 @@ namespace Controller
                         node = Convert.ToString(line[1]);
                         double dead = Math.Abs(Convert.ToDouble(line[4]));
                         dr["nodo"] = node;
-                        dr["cm"] = dead;
-                        dr["sv"] = (dead * this.participacion);
+                        dr["cm"] = dead * fac;
+                        dr["sv"] = ((dead * this.participacion));
                         Model.MDStaadPRO.dtGlobal.Rows.Add(dr);
                     }
                     if (line.Length == 9)
@@ -62,21 +63,29 @@ namespace Controller
                             {
                                 if (row[0].ToString() == "csxv" || row[0].ToString() == "cszv")
                                 {
-                                    double csv = (Math.Abs(Convert.ToDouble(row[1])) + Convert.ToDouble(drs[0]["sv"]));
-                                    drs[0][row[0].ToString()] = csv;
+                                    double sv = (Convert.ToDouble(drs[0]["sv"]) * fac);
+                                    double csv = ((Math.Abs(Convert.ToDouble(row[1])) * fac) + sv);
+                                    drs[0][row[0].ToString()] = (csv);
                                     // formula para pdelta
                                     double dead = Convert.ToDouble(drs[0]["cm"]);
                                     double live = Convert.ToDouble(drs[0]["cv"]);
+                                    //double acsfy = Math.Abs(Convert.ToDouble(row[1]));
                                     if (row[0].ToString() == "csxv")
+                                    {
                                         //Math.Round((((dead + (0.5 * live) + fzx + sv) * delta) / 2), 2);
-                                        drs[0]["pdsx"] = Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2);
+                                        drs[0]["pdsx"] = (Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2));
+                                        drs[0]["pdsxa"] = (Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2));
+                                    }
 
                                     if (row[0].ToString() == "cszv")
+                                    {
                                         //Math.Round((((dead + (0.5 * live) + fzx + sv) * delta) / 2), 2);
-                                        drs[0]["pdsz"] = Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2); 
+                                        drs[0]["pdsz"] = (Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2));
+                                        drs[0]["pdsza"] = (Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2));
+                                    }
                                 }
                                 else
-                                    drs[0][row[0].ToString()] = Math.Abs(Convert.ToDouble(row[1]));
+                                    drs[0][row[0].ToString()] = (Math.Abs(Convert.ToDouble(row[1])) * fac);
                             }
                             Model.MDStaadPRO.dtGlobal.AcceptChanges();
                         }
@@ -105,15 +114,15 @@ namespace Controller
                 {
                     case "CV":
                         obj[0] = "cv";
-                        obj[1] = Convert.ToDouble(row[3]);
+                        obj[1] = Math.Abs(Convert.ToDouble(row[3]));
                         break;
                     case "CSX":
                         obj[0] = "csx";
-                        obj[1] = Convert.ToDouble(row[2]);
+                        obj[1] = Math.Abs(Convert.ToDouble(row[2]));
                         break;
                     case "CSZ":
                         obj[0] = "csz";
-                        obj[1] = Convert.ToDouble(row[4]);
+                        obj[1] = Math.Abs(Convert.ToDouble(row[4]));
                         break;
                 }
                 lst.Add(obj);
@@ -122,12 +131,12 @@ namespace Controller
                 {
                     case "CSX":
                         obj[0] = "csxv";
-                        obj[1] = Convert.ToDouble(row[3]);
+                        obj[1] = Math.Abs(Convert.ToDouble(row[3]));
                         lst.Add(obj);
                         break;
                     case "CSZ":
                         obj[0] = "cszv";
-                        obj[1] = Convert.ToDouble(row[3]);
+                        obj[1] = Math.Abs(Convert.ToDouble(row[3]));
                         lst.Add(obj);
                         break;
                 }

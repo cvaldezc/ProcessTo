@@ -8,9 +8,9 @@ namespace Controller.Interfaces
     public interface IWriteStaadPROable
     {
 
-        void processAisladoSTD();
+        void processAisladoSTD(StringBuilder txt);
 
-        void processNoAisladoSTD();
+        void processNoAisladoSTD(StringBuilder txt);
 
         StringBuilder readFile();
     }

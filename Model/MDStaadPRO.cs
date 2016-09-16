@@ -24,6 +24,8 @@ namespace Model
             dtGlobal.Columns.Add("cszv", typeof(double));
             dtGlobal.Columns.Add("pdsx", typeof(double));
             dtGlobal.Columns.Add("pdsz", typeof(double));
+            dtGlobal.Columns.Add("pdsxa", typeof(double));
+            dtGlobal.Columns.Add("pdsza", typeof(double));
         }
 
     }
