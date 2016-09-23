@@ -31,7 +31,6 @@ namespace Model
             dtGlobal.Columns.Add("fx", typeof(Double));
             dtGlobal.Columns.Add("fy", typeof(Double));
 
-
             // Datos de tabla SX
             dtSX = new DataTable("SX");
             dtSX.Columns.Add("story", typeof(String));

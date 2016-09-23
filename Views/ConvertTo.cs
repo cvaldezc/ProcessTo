@@ -304,5 +304,13 @@ namespace Views
             this.txtArchivoDestino.Text = "";
             this.txtArchivoFormato.Text = "";
         }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            String fbase = this.txtArchivoBase.Text;
+            String ext = fbase.Split(new char[] { '.' }).Last();
+            Exportar nrpt = new Exportar(this.txtArchivoDestino.Text, ext);
+            nrpt.LlenarDatos();
+        }
     }
 }

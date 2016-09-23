@@ -76,6 +76,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExportar = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -254,6 +255,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnExportar);
             this.groupBox4.Controls.Add(this.lblcontador);
             this.groupBox4.Controls.Add(this.lblpasos);
             this.groupBox4.Controls.Add(this.pgcontador);
@@ -515,7 +517,7 @@
             this.groupBox3.Size = new System.Drawing.Size(687, 48);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Salida de Archivo";
+            this.groupBox3.Text = "Salida de Archivos";
             // 
             // btnSelDestino
             // 
@@ -577,19 +579,19 @@
             // limpiarToolStripMenuItem
             // 
             this.limpiarToolStripMenuItem.Name = "limpiarToolStripMenuItem";
-            this.limpiarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.limpiarToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.limpiarToolStripMenuItem.Text = "Limpiar";
             this.limpiarToolStripMenuItem.Click += new System.EventHandler(this.limpiarToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(111, 6);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
@@ -599,6 +601,19 @@
             this.acercaTools.Size = new System.Drawing.Size(55, 20);
             this.acercaTools.Text = "Acerca";
             this.acercaTools.Click += new System.EventHandler(this.acercaTools_Click);
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportar.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportar.Location = new System.Drawing.Point(6, 196);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(282, 35);
+            this.btnExportar.TabIndex = 8;
+            this.btnExportar.Text = "Reporte en Excel";
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
             // ConvertTo
             // 
@@ -686,5 +701,6 @@
         private System.Windows.Forms.Button btnBaseNoAislado;
         private System.Windows.Forms.TextBox txtBaseNoAislado;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button btnExportar;
     }
 }
