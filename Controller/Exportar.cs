@@ -64,7 +64,7 @@ namespace Controller
                 // TITULOS
                 ws.Cells[2, 3] = "FUERZAS";
                 ws.Cells[2, 6] = "MOMENTOS";
-                ws.Cells[3, 2] = "Nodo";
+                ws.Cells[3, 2] = "NODO";
                 // FUERZAS
                 ws.Cells[3, 3] = "FX";
                 ws.Cells[3, 4] = "FY";
@@ -76,7 +76,7 @@ namespace Controller
                 if (this.ext == "std")
                 {
                     // llamos a funcion
-                    Etabs();
+                    StaadPro();
                 }
                 else if (this.ext == "e2k")
                 {
@@ -99,7 +99,7 @@ namespace Controller
         {
             try
             {
-                DataRow[] dr = Model.MDEtabs.dtGlobal.Select(null, "joint", DataViewRowState.CurrentRows);
+                DataRow[] dr = Model.MDEtabs.dtGlobal.Select(null, null, DataViewRowState.CurrentRows);
                 int rindex = 4;
                 foreach (DataRow row in dr)
                 {
@@ -148,9 +148,26 @@ namespace Controller
                     ws.Cells[rindex, 8] = "0";
                     rindex++;
                 }
-                this.path = String.Format(@"{0}\\reporte.xls", this.path);
-                wb.SaveAs(path, Excel.XlFileFormat.xlWorkbookNormal);
+                ws.get_Range("B2", "H" + rindex).Cells.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                    //.BorderAround2(Excel.XlLineStyle.xlContinuous,
+                    //Excel.XlBorderWeight.xlThin, Excel.XlColorIndex.xlColorIndexAutomatic,
+                    //Type.Missing, Type.Missing);
+                ws.get_Range("C2", "E2").Merge(true);
+                ws.get_Range("C2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ws.get_Range("C2").Cells.Font.Bold = true;
+                ws.get_Range("F2", "H2").Merge(true);
+                ws.get_Range("F2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ws.get_Range("F2").Cells.Font.Bold = true;
+                ws.get_Range("B3", "H3").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ws.get_Range("B3", "H3").Font.Bold = true;
+                ws.get_Range("B3", "B" + rindex).Font.Bold = true;
+                ws.get_Range("B3", "B" + rindex).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 object myvalue = System.Reflection.Missing.Value;
+                this.path = String.Format(@"{0}\reporte.xlsx", this.path);
+                wb.SaveAs(path, Excel.XlFileFormat.xlOpenXMLWorkbook, myvalue,
+                myvalue, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
+                Excel.XlSaveConflictResolution.xlUserResolution, true,
+                myvalue, myvalue, myvalue);
                 wb.Close(true, myvalue, myvalue);
                 app.Quit();
                 status = false;
@@ -163,6 +180,93 @@ namespace Controller
                 Console.WriteLine(ex.Message.ToString());
             }
         }
+
+        private void StaadPro()
+        {
+            try
+            {
+                DataRow[] dr = Model.MDStaadPRO.dtGlobal.Select(null, null, DataViewRowState.CurrentRows);
+                int rindex = 4;
+                foreach (DataRow row in dr)
+                {
+                    // Dead
+                    // FUERZAS
+                    ws.Cells[rindex, 2] = row["nodo"];
+                    ws.Cells[rindex, 3] = "0";
+                    ws.Cells[rindex, 4] = "0";
+                    ws.Cells[rindex, 5] = row["cm"];
+                    // MOMENTOS
+                    ws.Cells[rindex, 6] = "0";
+                    ws.Cells[rindex, 7] = "0";
+                    ws.Cells[rindex, 8] = "0";
+                    // Live
+                    rindex++;
+                    // FUERZAS
+                    ws.Cells[rindex, 2] = row["nodo"];
+                    ws.Cells[rindex, 3] = "0";
+                    ws.Cells[rindex, 4] = "0";
+                    ws.Cells[rindex, 5] = row["cv"];
+                    // MOMENTOS
+                    ws.Cells[rindex, 6] = "0";
+                    ws.Cells[rindex, 7] = "0";
+                    ws.Cells[rindex, 8] = "0";
+                    // fzx
+                    rindex++;
+                    // FUERZAS
+                    ws.Cells[rindex, 2] = row["nodo"];
+                    ws.Cells[rindex, 3] = "0";
+                    ws.Cells[rindex, 4] = "0";
+                    ws.Cells[rindex, 5] = row["csxv"];
+                    // MOMENTOS
+                    ws.Cells[rindex, 6] = row["pdsz"];
+                    ws.Cells[rindex, 7] = "0";
+                    ws.Cells[rindex, 8] = "0";
+                    // fzy
+                    rindex++;
+                    // FUERZAS
+                    ws.Cells[rindex, 2] = row["nodo"];
+                    ws.Cells[rindex, 3] = "0";
+                    ws.Cells[rindex, 4] = "0";
+                    ws.Cells[rindex, 5] = row["cszv"];
+                    // MOMENTOS
+                    ws.Cells[rindex, 6] = "0";
+                    ws.Cells[rindex, 7] = "0";
+                    ws.Cells[rindex, 8] = row["pdsx"];
+                    rindex++;
+                }
+                ws.get_Range("B2", "H" + rindex).Cells.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                //.BorderAround2(Excel.XlLineStyle.xlContinuous,
+                //Excel.XlBorderWeight.xlThin, Excel.XlColorIndex.xlColorIndexAutomatic,
+                //Type.Missing, Type.Missing);
+                ws.get_Range("C2", "E2").Merge(true);
+                ws.get_Range("C2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ws.get_Range("C2").Cells.Font.Bold = true;
+                ws.get_Range("F2", "H2").Merge(true);
+                ws.get_Range("F2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ws.get_Range("F2").Cells.Font.Bold = true;
+                ws.get_Range("B3", "H3").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                ws.get_Range("B3", "H3").Font.Bold = true;
+                ws.get_Range("B3", "B" + rindex).Font.Bold = true;
+                ws.get_Range("B3", "B" + rindex).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                object myvalue = System.Reflection.Missing.Value;
+                this.path = String.Format(@"{0}\reporte.xlsx", this.path);
+                wb.SaveAs(path, Excel.XlFileFormat.xlOpenXMLWorkbook, myvalue,
+                myvalue, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
+                Excel.XlSaveConflictResolution.xlUserResolution, true,
+                myvalue, myvalue, myvalue);
+                wb.Close(true, myvalue, myvalue);
+                app.Quit();
+                status = false;
+                //releaseObject(ws);
+                //releaseObject(wb);
+                //releaseObject(app);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+            }
+        }
+
 
         private void releaseObject(object obj)
         {

@@ -307,10 +307,52 @@ namespace Views
 
         private void btnExportar_Click(object sender, EventArgs e)
         {
-            String fbase = this.txtArchivoBase.Text;
-            String ext = fbase.Split(new char[] { '.' }).Last();
-            Exportar nrpt = new Exportar(this.txtArchivoDestino.Text, ext);
-            nrpt.LlenarDatos();
+            statusReport();
+            Thread t1 = new Thread(new ThreadStart(createRpt));
+            BarraProgreso.tarea1 = t1;
+            BarraProgreso.tarea1.IsBackground = true;
+            BarraProgreso.tarea1.Start();
+        }
+
+        private void createRpt()
+        {
+            try
+            {
+                String fbase = this.txtArchivoBase.Text;
+                String ext = fbase.Split(new char[] { '.' }).Last();
+                Exportar nrpt = new Exportar(this.txtArchivoDestino.Text, ext);
+                nrpt.LlenarDatos();
+                statusReport(1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        protected void statusReport(int st = 0)
+        {
+            switch (st)
+            {
+                case 0:
+                    Invoke(new Action(() => this.lblpasos.Text = "Creando Reporte"));
+                    Invoke(new Action(() => this.lblcontador.Text = "1/1"));
+                    Invoke(new Action(() => this.pgbarpasos.Style = ProgressBarStyle.Marquee));
+                    Invoke(new Action(() => this.pgbarpasos.MarqueeAnimationSpeed = 10));
+                    Invoke(new Action(() => this.BtnProcesar.Enabled = false));
+                    Invoke(new Action(() => this.btnExportar.Enabled = false));
+                    break;
+                case 1:
+                    Invoke(new Action(() => this.lblpasos.Text = "Completo!"));
+                    Invoke(new Action(() => this.lblcontador.Text = "Completo!"));
+                    Invoke(new Action(() => pgbarpasos.Style = ProgressBarStyle.Blocks));
+                    Invoke(new Action(() => this.pgbarpasos.Value = 100));
+                    Invoke(new Action(() => this.pgcontador.Value = 100));
+                    Invoke(new Action(() => this.BtnProcesar.Enabled = true));
+                    Invoke(new Action(() => this.btnExportar.Enabled = true));
+                    MessageBox.Show(this, "Reporte creado Correctamente.", "Información!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+            }
         }
     }
 }
