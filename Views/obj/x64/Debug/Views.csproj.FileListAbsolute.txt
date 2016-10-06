@@ -18,3 +18,6 @@ C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.Propert
 C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.csproj.GenerateResource.Cache
 C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.exe
 C:\Users\CHRISTIAN\development\csharp\Santiago\Views\obj\x64\Debug\Views.pdb
+C:\Users\Christian\development\csharp\Santiago\Views\bin\x64\Debug\Model.dll
+C:\Users\Christian\development\csharp\Santiago\Views\bin\x64\Debug\Model.pdb
+C:\Users\Christian\development\csharp\Santiago\Views\obj\x64\Debug\Views.About.resources

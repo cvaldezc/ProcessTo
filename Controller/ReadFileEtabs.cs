@@ -70,7 +70,14 @@ namespace Controller
                             List<object[]> lst = rowData(i);
                             foreach (object[] item in lst)
                             {
-                                drs[0][item[0].ToString()] = Math.Abs(Convert.ToDouble(item[1]));
+                                if (item[0].ToString().Equals("dead") || item[0].ToString().Equals("live") || item[0].ToString().Equals("fzx") || item[0].ToString().Equals("fzy") || item[0].ToString().Equals("fx") || item[0].ToString().Equals("fy"))
+                                {
+                                    drs[0][item[0].ToString()] = Math.Abs(Convert.ToDouble(item[1]));
+                                }
+                                else
+                                {
+                                    drs[0][item[0].ToString()] = Convert.ToDouble(item[1]);
+                                }
                             }
                             Model.MDEtabs.dtGlobal.AcceptChanges();
                         }
@@ -82,7 +89,14 @@ namespace Controller
                             List<object[]> lst = rowData(i);
                             foreach (object[] item in lst)
                             {
-                                dr[item[0].ToString()] = Math.Abs(Convert.ToDouble(item[1]));
+                                if (item[0].ToString().Equals("dead") || item[0].ToString().Equals("live") || item[0].ToString().Equals("fzx") || item[0].ToString().Equals("fzy") || item[0].ToString().Equals("fx") || item[0].ToString().Equals("fy"))
+                                {
+                                    dr[item[0].ToString()] = Math.Abs(Convert.ToDouble(item[1]));
+                                }
+                                else
+                                {
+                                    dr[item[0].ToString()] = Convert.ToDouble(item[1]);
+                                }
                             }
 
                             Model.MDEtabs.dtGlobal.Rows.Add(dr);
@@ -111,27 +125,63 @@ namespace Controller
                 String name = sheet.Cells[row, 4].Value;
                 object[] obj;
                 obj = new object[2];
-                obj[0] = name.ToLower();
+                //obj[0] = name.ToLower();
                 switch (name)
                 {
                     case "Dead":
-                        obj[1] = sheet.Cells[row, 7].Value;
+                        obj[0] = "dead";
+                        obj[1] = sheet.Cells[row, 7].Value2;
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "dfx";
+                        obj[1] = sheet.Cells[row, 5].Value2;
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "dfy";
+                        obj[1] = sheet.Cells[row, 6].Value;
+                        lst.Add(obj);
                         break;
                     case "Live":
+                        obj[0] = "live";
                         obj[1] = sheet.Cells[row, 7].Value;
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "lfx";
+                        obj[1] = sheet.Cells[row, 5].Value;
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "lfy";
+                        obj[1] = sheet.Cells[row, 6].Value;
+                        lst.Add(obj);
                         break;
                     case "SX":
                         obj[0] = "fzx";
                         obj[1] = sheet.Cells[row, 7].Value;
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "sxx";
+                        obj[1] = sheet.Cells[row, 5].Value;
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "sxy";
+                        obj[1] = sheet.Cells[row, 6].Value;
+                        lst.Add(obj);
                         break;
                     case "SY":
                         obj[0] = "fzy";
                         obj[1] = sheet.Cells[row, 7].Value;
-                        break;
-                    default:
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "syx";
+                        obj[1] = sheet.Cells[row, 5].Value;
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "syy";
+                        obj[1] = sheet.Cells[row, 6].Value;
+                        lst.Add(obj);
                         break;
                 }
-                lst.Add(obj);
+                // lst.Add(obj);
                 obj = new object[2];
                 switch (name)
                 {
@@ -174,10 +224,9 @@ namespace Controller
                 }
                 inputSXSY(story);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
-                throw;
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -209,10 +258,9 @@ namespace Controller
                     Model.MDEtabs.dtSY.Rows.Add(d);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
-                throw;
+                Console.WriteLine(ex.Message);
             }
         }
         

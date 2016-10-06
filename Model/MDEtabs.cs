@@ -30,6 +30,19 @@ namespace Model
             dtGlobal.Columns.Add("pdsy", typeof(Double));
             dtGlobal.Columns.Add("fx", typeof(Double));
             dtGlobal.Columns.Add("fy", typeof(Double));
+            // others data only for report
+            // dead
+            dtGlobal.Columns.Add("dfx", typeof(Double));
+            dtGlobal.Columns.Add("dfy", typeof(Double));
+            // live
+            dtGlobal.Columns.Add("lfx", typeof(Double));
+            dtGlobal.Columns.Add("lfy", typeof(Double));
+            // sx
+            dtGlobal.Columns.Add("sxx", typeof(Double));
+            dtGlobal.Columns.Add("sxy", typeof(Double));
+            // sy
+            dtGlobal.Columns.Add("syx", typeof(Double));
+            dtGlobal.Columns.Add("syy", typeof(Double));
 
             // Datos de tabla SX
             dtSX = new DataTable("SX");

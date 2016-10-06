@@ -169,7 +169,7 @@ namespace Views
                 BarraProgreso.status = 2;
                 statusBar();
                 etabs.calcFormulas(Convert.ToDouble(txtDelta.Value), Convert.ToDouble(lblSismoVertical.Text), this.chknoaislado.Checked ? txtnoaislado.Text : "");
-                // read.test();
+                //etabs.test();
                 etabs.close();
                 BarraProgreso.status = 3;
                 statusBar();
