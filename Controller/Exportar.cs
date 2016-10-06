@@ -74,7 +74,7 @@ namespace Controller
                             ws.Name = "SALIDAS";
                             break;
                         case 3:
-                            ws.Name = "TEST";
+                            ws.Name = "CONSOLIDADO";
                             break;
                     }
                     ws.Columns.AutoFit();
@@ -120,6 +120,7 @@ namespace Controller
             {
                 DataRow[] dr = Model.MDEtabs.dtGlobal.Select(null, null, DataViewRowState.CurrentRows);
                 int rindex = 4, ri = 0;
+                #region "load data"
                 foreach (DataRow row in dr)
                 {
                     ri = rindex;
@@ -178,7 +179,9 @@ namespace Controller
                     }
                     ri = rindex;
                 }
+                #endregion
                 object myvalue = System.Reflection.Missing.Value;
+                #region "load format file"
                 for (int i = 1; i <= wb.Sheets.Count; i++)
                 {
                     ws = wb.Worksheets[i] as Microsoft.Office.Interop.Excel.Worksheet;
@@ -220,9 +223,10 @@ namespace Controller
                         ws.get_Range("A3", "A" + rindex).Font.Bold = true;
                         ws.get_Range("A3", "A" + rindex).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                     }
-                    
+
                 }
-                this.path = String.Format(@"{0}\reporte.xlsx", this.path);
+                #endregion
+                this.path = String.Format(@"{0}\REPORTE-ETABS.xlsx", this.path);
                 wb.SaveAs(path, Excel.XlFileFormat.xlOpenXMLWorkbook, myvalue,
                 myvalue, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
                 Excel.XlSaveConflictResolution.xlUserResolution, true,
@@ -245,74 +249,111 @@ namespace Controller
             try
             {
                 DataRow[] dr = Model.MDStaadPRO.dtGlobal.Select(null, null, DataViewRowState.CurrentRows);
-                int rindex = 4;
+                int rindex = 4, ri = 0;
+                #region "load data"
                 foreach (DataRow row in dr)
                 {
-                    // Dead
-                    // FUERZAS
-                    ws.Cells[rindex, 1] = row["nodo"];
-                    ws.Cells[rindex, 2] = "CM";
-                    ws.Cells[rindex, 3] = "0";
-                    ws.Cells[rindex, 4] = "0";
-                    ws.Cells[rindex, 5] = row["cm"];
-                    // MOMENTOS
-                    ws.Cells[rindex, 6] = "0";
-                    ws.Cells[rindex, 7] = "0";
-                    ws.Cells[rindex, 8] = "0";
-                    // Live
-                    rindex++;
-                    // FUERZAS
-                    ws.Cells[rindex, 1] = row["nodo"];
-                    ws.Cells[rindex, 2] = "CV";
-                    ws.Cells[rindex, 3] = "0";
-                    ws.Cells[rindex, 4] = "0";
-                    ws.Cells[rindex, 5] = row["cv"];
-                    // MOMENTOS
-                    ws.Cells[rindex, 6] = "0";
-                    ws.Cells[rindex, 7] = "0";
-                    ws.Cells[rindex, 8] = "0";
-                    // fzx
-                    rindex++;
-                    // FUERZAS
-                    ws.Cells[rindex, 1] = row["nodo"];
-                    ws.Cells[rindex, 2] = "CSVX";
-                    ws.Cells[rindex, 3] = "0";
-                    ws.Cells[rindex, 4] = "0";
-                    ws.Cells[rindex, 5] = row["csxv"];
-                    // MOMENTOS
-                    ws.Cells[rindex, 6] = row["pdsz"];
-                    ws.Cells[rindex, 7] = "0";
-                    ws.Cells[rindex, 8] = "0";
-                    // fzy
-                    rindex++;
-                    // FUERZAS
-                    ws.Cells[rindex, 1] = row["nodo"];
-                    ws.Cells[rindex, 2] = "CSVZ";
-                    ws.Cells[rindex, 3] = "0";
-                    ws.Cells[rindex, 4] = "0";
-                    ws.Cells[rindex, 5] = row["cszv"];
-                    // MOMENTOS
-                    ws.Cells[rindex, 6] = "0";
-                    ws.Cells[rindex, 7] = "0";
-                    ws.Cells[rindex, 8] = row["pdsx"];
-                    rindex++;
+                    ri = rindex;
+                    for (int i = 1; i <= wb.Sheets.Count; i++)
+                    {
+                        ws = wb.Worksheets[i] as Microsoft.Office.Interop.Excel.Worksheet;
+                        rindex = ri;
+                        // Dead
+                        // FUERZAS
+                        ws.Cells[rindex, 1] = row["nodo"];
+                        ws.Cells[rindex, 2] = "CM";
+                        ws.Cells[rindex, 3] = row["cmx"];
+                        ws.Cells[rindex, 4] = row["cm"];
+                        ws.Cells[rindex, 5] = row["cmz"];
+                        // MOMENTOS
+                        ws.Cells[rindex, 6] = "0";
+                        ws.Cells[rindex, 7] = "0";
+                        ws.Cells[rindex, 8] = "0";
+                        // Live
+                        rindex++;
+                        // FUERZAS
+                        ws.Cells[rindex, 1] = row["nodo"];
+                        ws.Cells[rindex, 2] = "CV";
+                        ws.Cells[rindex, 3] = row["cvx"];
+                        ws.Cells[rindex, 4] = row["cv"];
+                        ws.Cells[rindex, 5] = row["cvz"];
+                        // MOMENTOS
+                        ws.Cells[rindex, 6] = "0";
+                        ws.Cells[rindex, 7] = "0";
+                        ws.Cells[rindex, 8] = "0";
+                        // fzx
+                        rindex++;
+                        // FUERZAS
+                        ws.Cells[rindex, 1] = row["nodo"];
+                        ws.Cells[rindex, 2] = "CSVX";
+                        ws.Cells[rindex, 3] = row["csx"];
+                        ws.Cells[rindex, 4] = row["csxy"]; // row["csxv"];
+                        ws.Cells[rindex, 5] = row["csxz"];
+                        // MOMENTOS
+                        ws.Cells[rindex, 6] = "0";
+                        ws.Cells[rindex, 7] = "0";
+                        ws.Cells[rindex, 8] = row["pdsx"];
+                        // fzy
+                        rindex++;
+                        // FUERZAS
+                        ws.Cells[rindex, 1] = row["nodo"];
+                        ws.Cells[rindex, 2] = "CSVZ";
+                        ws.Cells[rindex, 3] = row["cszx"];
+                        ws.Cells[rindex, 4] = row["cszy"]; // row["cszv"];
+                        ws.Cells[rindex, 5] = row["csz"];
+                        // MOMENTOS
+                        ws.Cells[rindex, 6] = row["pdsz"];
+                        ws.Cells[rindex, 7] = "0";
+                        ws.Cells[rindex, 8] = "0";
+                        rindex++;
+                    }
                 }
-                ws.get_Range("A2", "H" + rindex).Cells.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-                //.BorderAround2(Excel.XlLineStyle.xlContinuous,
-                //Excel.XlBorderWeight.xlThin, Excel.XlColorIndex.xlColorIndexAutomatic,
-                //Type.Missing, Type.Missing);
-                ws.get_Range("C2", "E2").Merge(true);
-                ws.get_Range("C2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                ws.get_Range("C2").Cells.Font.Bold = true;
-                ws.get_Range("F2", "H2").Merge(true);
-                ws.get_Range("F2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                ws.get_Range("F2").Cells.Font.Bold = true;
-                ws.get_Range("A3", "H3").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                ws.get_Range("A3", "H3").Font.Bold = true;
-                ws.get_Range("A3", "A" + rindex).Font.Bold = true;
-                ws.get_Range("A3", "A" + rindex).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                #endregion
                 object myvalue = System.Reflection.Missing.Value;
-                this.path = String.Format(@"{0}\reporte.xlsx", this.path);
+                #region "load format file"
+                for (int i = 1; i <= wb.Sheets.Count; i++)
+                {
+                    ws = wb.Worksheets[i] as Excel.Worksheet;
+                    if (i == 1)
+                    {
+                        ws.get_Range("F1", "H1").EntireColumn.Delete();
+                    }
+                    if (i == 2)
+                    {
+                        ws.get_Range("C1", "E1").EntireColumn.Delete();
+                    }
+                    if (i == 1 || i == 2)
+                    {
+                        ws.get_Range("A2", "E" + rindex).Cells.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                        ws.get_Range("C2", "E2").Merge(true);
+                        ws.get_Range("C2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        ws.get_Range("C2").Cells.Font.Bold = true;
+                        //ws.get_Range("F2", "H2").Merge(true);
+                        //ws.get_Range("F2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        //ws.get_Range("F2").Cells.Font.Bold = true;
+                        ws.get_Range("A3", "E3").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        ws.get_Range("A3", "E3").Font.Bold = true;
+                        ws.get_Range("A3", "A" + rindex).Font.Bold = true;
+                        ws.get_Range("A3", "A" + rindex).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    }
+                    if (i == 3)
+                    {
+                        ws.get_Range("A2", "H" + rindex).Cells.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                        ws.get_Range("C2", "E2").Merge(true);
+                        ws.get_Range("C2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        ws.get_Range("C2").Cells.Font.Bold = true;
+                        ws.get_Range("F2", "H2").Merge(true);
+                        ws.get_Range("F2").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        ws.get_Range("F2").Cells.Font.Bold = true;
+                        ws.get_Range("A3", "H3").Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        ws.get_Range("A3", "H3").Font.Bold = true;
+                        ws.get_Range("A3", "A" + rindex).Font.Bold = true;
+                        ws.get_Range("A3", "A" + rindex).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    }
+                }
+                #endregion
+                this.path = String.Format(@"{0}\REPORTE-STAADPRO.xlsx", this.path);
                 wb.SaveAs(path, Excel.XlFileFormat.xlOpenXMLWorkbook, myvalue,
                 myvalue, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
                 Excel.XlSaveConflictResolution.xlUserResolution, true,

@@ -16,9 +16,9 @@ namespace Controller
         // Parameters
         private FileStream fs;
         private StreamReader read;
-        public double participacion;
+        public decimal participacion;
         public string path;
-        public double delta;
+        public decimal delta;
 
         #region IReadFileable Members
 
@@ -27,7 +27,7 @@ namespace Controller
             Model.MDStaadPRO.init();
             fs = new FileStream(@path, FileMode.Open, FileAccess.Read);
             read = new StreamReader(fs, Encoding.UTF8);
-            double fac = 1000;
+            decimal fac = 1000;
             //try
             //{
                 String node = "";
@@ -43,10 +43,14 @@ namespace Controller
                         // crea nuevo nodo
                         DataRow dr = Model.MDStaadPRO.dtGlobal.NewRow();
                         node = Convert.ToString(line[1]);
-                        double dead = Math.Abs(Convert.ToDouble(line[4]));
+                        decimal dead = Math.Abs(Convert.ToDecimal(line[4]));
                         dr["nodo"] = node;
                         dr["cm"] = dead * fac;
+                        /// TODO: en la linea anterior
                         dr["sv"] = ((dead * this.participacion));
+                        // other data for report
+                        dr["cmx"] = Convert.ToDecimal(line[3]);
+                        dr["cmz"] = Convert.ToDecimal(line[5]);
                         Model.MDStaadPRO.dtGlobal.Rows.Add(dr);
                     }
                     if (line.Length == 9)
@@ -63,29 +67,38 @@ namespace Controller
                             {
                                 if (row[0].ToString() == "csxv" || row[0].ToString() == "cszv")
                                 {
-                                    double sv = (Convert.ToDouble(drs[0]["sv"]) * fac);
-                                    double csv = ((Math.Abs(Convert.ToDouble(row[1])) * fac) + sv);
+                                    decimal sv = (Convert.ToDecimal(drs[0]["sv"]) * fac);
+                                    decimal csv = ((Math.Abs(Convert.ToDecimal(row[1])) * fac) + sv);
                                     drs[0][row[0].ToString()] = (csv);
                                     // formula para pdelta
-                                    double dead = Convert.ToDouble(drs[0]["cm"]);
-                                    double live = Convert.ToDouble(drs[0]["cv"]);
+                                    decimal dead = Convert.ToDecimal(drs[0]["cm"]);
+                                    decimal live = Convert.ToDecimal(drs[0]["cv"]);
                                     //double acsfy = Math.Abs(Convert.ToDouble(row[1]));
                                     if (row[0].ToString() == "csxv")
                                     {
                                         //Math.Round((((dead + (0.5 * live) + fzx + sv) * delta) / 2), 2);
-                                        drs[0]["pdsx"] = (Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2));
-                                        drs[0]["pdsxa"] = (Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2));
+                                        drs[0]["pdsx"] = (Math.Round((((dead + (Convert.ToDecimal(0.5) * live) + csv) * delta) / 2), 2));
+                                        drs[0]["pdsxa"] = (Math.Round((((dead + (Convert.ToDecimal(0.5) * live) + csv) * delta) / 2), 2));
                                     }
 
                                     if (row[0].ToString() == "cszv")
                                     {
                                         //Math.Round((((dead + (0.5 * live) + fzx + sv) * delta) / 2), 2);
-                                        drs[0]["pdsz"] = (Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2));
-                                        drs[0]["pdsza"] = (Math.Round((((dead + (0.5 * live) + csv) * delta) / 2), 2));
+                                        drs[0]["pdsz"] = (Math.Round((((dead + (Convert.ToDecimal(0.5) * live) + csv) * delta) / 2), 2));
+                                        drs[0]["pdsza"] = (Math.Round((((dead + (Convert.ToDecimal(0.5) * live) + csv) * delta) / 2), 2));
                                     }
                                 }
                                 else
-                                    drs[0][row[0].ToString()] = (Math.Abs(Convert.ToDouble(row[1])) * fac);
+                                {
+                                    if (row[0].ToString() == "cm" || row[0].ToString() == "cv" ||row[0].ToString() == "csx" || row[0].ToString() == "csz")
+                                    {
+                                        drs[0][row[0].ToString()] = (Math.Abs(Convert.ToDecimal(row[1])) * fac);
+                                    }
+                                    else
+                                    {
+                                        drs[0][row[0].ToString()] = Convert.ToDecimal(row[1]);
+                                    }
+                                }
                             }
                             Model.MDStaadPRO.dtGlobal.AcceptChanges();
                         }
@@ -114,29 +127,55 @@ namespace Controller
                 {
                     case "CV":
                         obj[0] = "cv";
-                        obj[1] = Math.Abs(Convert.ToDouble(row[3]));
+                        obj[1] = Convert.ToDouble(row[3]);
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "cvx";
+                        obj[1] = Convert.ToDouble(row[2]);
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "cvz";
+                        obj[1] = Convert.ToDouble(row[4]);
+                        lst.Add(obj);
                         break;
                     case "CSX":
                         obj[0] = "csx";
-                        obj[1] = Math.Abs(Convert.ToDouble(row[2]));
+                        obj[1] = Convert.ToDouble(row[2]);
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "csxy";
+                        obj[1] = Convert.ToDouble(row[3]);
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "csxz";
+                        obj[1] = Convert.ToDouble(row[4]);
+                        lst.Add(obj);
                         break;
                     case "CSZ":
                         obj[0] = "csz";
-                        obj[1] = Math.Abs(Convert.ToDouble(row[4]));
+                        obj[1] = Convert.ToDouble(row[4]);
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "cszy";
+                        obj[1] = Convert.ToDouble(row[3]);
+                        lst.Add(obj);
+                        obj = new object[2];
+                        obj[0] = "cszx";
+                        obj[1] = Convert.ToDouble(row[2]);
+                        lst.Add(obj);
                         break;
                 }
-                lst.Add(obj);
                 obj = new object[2];
                 switch (carga)
                 {
                     case "CSX":
                         obj[0] = "csxv";
-                        obj[1] = Math.Abs(Convert.ToDouble(row[3]));
+                        obj[1] = Convert.ToDouble(row[3]);
                         lst.Add(obj);
                         break;
                     case "CSZ":
                         obj[0] = "cszv";
-                        obj[1] = Math.Abs(Convert.ToDouble(row[3]));
+                        obj[1] = Convert.ToDouble(row[3]);
                         lst.Add(obj);
                         break;
                 }

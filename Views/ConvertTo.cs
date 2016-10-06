@@ -187,11 +187,11 @@ namespace Views
                 ReadFileStaadPRO staad = new ReadFileStaadPRO();
                 BarraProgreso.status = 2;
                 statusBar();
-                staad.participacion = Convert.ToDouble(this.lblSismoVertical.Text);
-                staad.delta = Convert.ToDouble(this.txtDelta.Value);
+                staad.participacion = Convert.ToDecimal(this.lblSismoVertical.Text);
+                staad.delta = Convert.ToDecimal(this.txtDelta.Value);
                 staad.path = path;
                 staad.ReadStaadPro();
-                //staad.test();
+                staad.test();
                 BarraProgreso.status = 3;
                 statusBar();
                 // Escribir Archivo
